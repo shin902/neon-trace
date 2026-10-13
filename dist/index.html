@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="ja">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#0b0e0c"><title>NEON TRACE — ライブ輪郭エフェクト</title><meta name="description" content="カメラ、動画の輪郭に、流れる緑のネオンを。ブラウザ内でリアルタイム処理。"><link rel="stylesheet" href="style.css"></head>
+<body>
+<header><a class="brand" href="./"><span class="brand-icon">⌁</span> NEON TRACE<span class="tag">LIVE EDGE LAB</span></a><span class="local"><i></i> 映像はブラウザ内で処理</span></header>
+<main>
+<section class="workspace">
+<div class="intro"><div><p class="eyebrow">MAKE YOUR OUTLINE MOVE</p><h1>輪郭に、エネルギーを。</h1><p class="subtitle">余分な線を抑えて、緑のギザギザを流す。</p></div><span class="version">EXPERIMENT 001</span></div>
+<div class="sourcebar" role="group" aria-label="映像の入力"><button id="demo" class="active">◈ デモ</button><button id="camera">◉ カメラ</button><button id="file">↥ 動画ファイル</button><input id="upload" type="file" accept="video/*" hidden></div>
+<div class="stage" id="stage"><canvas id="view" aria-label="輪郭エフェクトのプレビュー"></canvas><div class="stage-top"><span class="live-pill"><i></i><span id="source-label">DEMO SIGNAL</span></span><span id="fps">— FPS</span></div><div class="stage-bottom"><span id="stage-caption">DEMO / 動く図形から実際にエッジを抽出</span><span id="count">0 CONTOURS</span></div><div id="drop-hint">動画をドロップして読み込む</div></div>
+<div class="transport"><div><button id="pause" aria-label="一時停止">Ⅱ</button><button id="stop">入力を停止</button><button id="sound" hidden aria-pressed="false">音声 OFF</button></div><div><button id="compare" aria-pressed="false">元映像を比較</button><button id="fullscreen" aria-label="全画面表示">⛶</button></div></div>
+<p id="status" role="status" aria-live="polite">デモを再生中。カメラや動画を選ぶと、その映像を解析します。</p>
+<p class="help">カメラはHTTPSまたはlocalhostで利用できます。動画はこの端末内で読み込みます。</p>
+</section>
+<aside>
+<div class="panel-title"><span>EFFECT CONTROLS</span><button id="reset">リセット ↺</button></div>
+<section class="control-section"><h2><span>01</span> 輪郭の抽出</h2><div class="mode" role="group" aria-label="抽出モード"><button id="edges" class="active" aria-pressed="true">全体のエッジ</button><button id="person" aria-pressed="false">人物の外周</button></div><p class="note" id="mode-note">ぼかし → Sobel → 細線化 → 線の選別</p><label for="threshold">エッジの強さ <output id="threshold-value">70</output></label><input id="threshold" type="range" min="20" max="180" value="70"><div class="range-labels"><span>細かく拾う</span><span>強い輪郭のみ</span></div><label for="minLength">短い線を除去 <output id="minLength-value">6%</output></label><input id="minLength" type="range" min="1" max="25" step="0.5" value="6"><div class="range-labels"><span>線を残す</span><span>長い線のみ</span></div><label for="stability">時間方向の安定化 <output id="stability-value">65%</output></label><input id="stability" type="range" min="0" max="95" value="65"><p class="note">短い線は元の輪郭で判定。揺らしても選別は変わりません。</p></section>
+<section class="control-section"><h2><span>02</span> ギザギザの動き</h2><div class="motion-options" role="group" aria-label="アニメーション"><button data-motion="flow" class="active" aria-pressed="true">流れる</button><button data-motion="noise" aria-pressed="false">ノイズ</button><button data-motion="vibrate" aria-pressed="false">振動</button></div><label for="amplitude">ギザギザの大きさ <output id="amplitude-value">7</output></label><input id="amplitude" type="range" min="0" max="24" value="7"><label for="speed">動きの速さ <output id="speed-value">1.0×</output></label><input id="speed" type="range" min="0" max="3" step="0.1" value="1"><label for="glow">発光 <output id="glow-value">60%</output></label><input id="glow" type="range" min="0" max="100" value="60"></section>
+<section class="control-section appearance"><h2><span>03</span> 見え方</h2><label class="switch-row" for="overlay">元映像に重ねる<input id="overlay" type="checkbox" checked></label><label class="switch-row" for="mirror">左右を反転<input id="mirror" type="checkbox"></label><div class="color-row"><span>線の色</span><label><input id="color" type="color" value="#76ff57" aria-label="線の色"><span id="hex">#76FF57</span></label></div></section>
+<div class="recipe"><span class="spark">✳</span><p><strong>FLOWING NOISE</strong><br>輪郭に沿うノイズ ＋ 微かな振動</p></div>
+</aside>
+</main><footer><span>NEON TRACE / REALTIME VISUAL EXPERIMENT</span><span>カメラ・マイクの許可は入力を選んだときだけ。マイクは使用しません。</span></footer>
+<video id="input-video" playsinline muted hidden></video><script type="module" src="app.js"></script>
+</body></html>

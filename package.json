@@ -1,0 +1,1 @@
+{"name":"neon-contour","private":true,"type":"module","scripts":{"test":"node tests/edge.test.mjs","start":"python3 -m http.server 3000 --directory dist"}}
